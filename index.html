@@ -535,15 +535,15 @@
 
 <nav>
   <a href="#" class="logo">Coyote <span>AI</span></a>
-  <a href="#pricing" class="nav-cta">Get Started</a>
+  <a href="#signup" class="nav-cta">Get Started</a>
 </nav>
 
 <section class="hero">
   <div class="hero-label">AI-Powered Business Management</div>
   <h1>Your business runs itself. <em>You run your life.</em></h1>
   <p class="hero-sub">An AI employee that manages your operations 24/7. Answers customer texts, collects payments, pulls reports, and handles the back office work that keeps you chained to your desk. All through a simple text message on your phone.</p>
-  <a href="#pricing" class="hero-cta">
-    Start Your Free Trial
+  <a href="#signup" class="hero-cta">
+    Get Started Now
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
   </a>
   <p class="hero-proof">No contracts. Cancel anytime. Running in under an hour.</p>
@@ -658,7 +658,7 @@
         <li>Weekly summary report</li>
         <li>Up to 500 messages/month</li>
       </ul>
-      <a href="#" class="price-cta secondary">Start Free Trial</a>
+      <a href="#signup" class="price-cta secondary" onclick="selectPlan('front-desk')">Start Here</a>
     </div>
     <div class="price-card featured">
       <div class="price-badge">Most Popular</div>
@@ -673,7 +673,7 @@
         <li>Account notes and updates</li>
         <li>Up to 2,000 messages/month</li>
       </ul>
-      <a href="#" class="price-cta primary">Start Free Trial</a>
+      <a href="#signup" class="price-cta primary" onclick="selectPlan('office-manager')">Start Here</a>
     </div>
     <div class="price-card">
       <h3>Operations</h3>
@@ -687,23 +687,103 @@
         <li>Multi-location support</li>
         <li>Unlimited messages</li>
       </ul>
-      <a href="#" class="price-cta secondary">Start Free Trial</a>
+      <a href="#signup" class="price-cta secondary" onclick="selectPlan('operations')">Start Here</a>
     </div>
   </div>
 </section>
 
-<section class="final-cta">
+<section class="final-cta" id="signup">
   <h2>Stop running your business from a desk. Start running it from your phone.</h2>
   <p>Your AI employee is ready to start today. No setup fees, no contracts, no complicated onboarding. Just tell it about your business and it goes to work. You will wonder how you ever operated without it.</p>
-  <a href="#" class="hero-cta">
-    Get Started Now
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-  </a>
+  
+  <div id="signup-form" style="max-width:480px; margin:0 auto; text-align:left; background:white; padding:40px; border-radius:12px; border:1px solid rgba(26,26,26,0.1); margin-top:40px;">
+    <h3 style="font-family:'Instrument Serif',serif; font-size:1.5rem; margin-bottom:8px; text-align:center;">Get Started</h3>
+    <p id="selected-plan-display" style="text-align:center; color:#8A8275; margin-bottom:24px; font-size:0.95rem;">Tell us about your business and we will be in touch within 24 hours.</p>
+    
+    <label style="display:block; margin-bottom:4px; font-weight:600; font-size:0.9rem;">Your Name</label>
+    <input id="signup-name" type="text" placeholder="John Smith" style="width:100%; padding:12px; border:1px solid rgba(26,26,26,0.15); border-radius:6px; font-size:1rem; margin-bottom:16px; font-family:'DM Sans',sans-serif;">
+    
+    <label style="display:block; margin-bottom:4px; font-weight:600; font-size:0.9rem;">Business Name</label>
+    <input id="signup-business" type="text" placeholder="Smith's Storage" style="width:100%; padding:12px; border:1px solid rgba(26,26,26,0.15); border-radius:6px; font-size:1rem; margin-bottom:16px; font-family:'DM Sans',sans-serif;">
+    
+    <label style="display:block; margin-bottom:4px; font-weight:600; font-size:0.9rem;">Email</label>
+    <input id="signup-email" type="email" placeholder="john@smithstorage.com" style="width:100%; padding:12px; border:1px solid rgba(26,26,26,0.15); border-radius:6px; font-size:1rem; margin-bottom:16px; font-family:'DM Sans',sans-serif;">
+    
+    <label style="display:block; margin-bottom:4px; font-weight:600; font-size:0.9rem;">Phone</label>
+    <input id="signup-phone" type="tel" placeholder="(555) 123-4567" style="width:100%; padding:12px; border:1px solid rgba(26,26,26,0.15); border-radius:6px; font-size:1rem; margin-bottom:16px; font-family:'DM Sans',sans-serif;">
+    
+    <label style="display:block; margin-bottom:4px; font-weight:600; font-size:0.9rem;">Industry</label>
+    <select id="signup-industry" style="width:100%; padding:12px; border:1px solid rgba(26,26,26,0.15); border-radius:6px; font-size:1rem; margin-bottom:16px; font-family:'DM Sans',sans-serif; background:white;">
+      <option value="">Select your industry</option>
+      <option value="self-storage">Self-Storage</option>
+      <option value="pool-service">Pool Service</option>
+      <option value="hvac">HVAC / Home Services</option>
+      <option value="car-wash">Car Wash</option>
+      <option value="landscaping">Landscaping</option>
+      <option value="auto-repair">Auto Repair</option>
+      <option value="dental">Dental / Medical</option>
+      <option value="veterinary">Veterinary</option>
+      <option value="other">Other</option>
+    </select>
+    
+    <label style="display:block; margin-bottom:4px; font-weight:600; font-size:0.9rem;">Plan</label>
+    <select id="signup-plan" style="width:100%; padding:12px; border:1px solid rgba(26,26,26,0.15); border-radius:6px; font-size:1rem; margin-bottom:24px; font-family:'DM Sans',sans-serif; background:white;">
+      <option value="front-desk">Front Desk — $299/mo</option>
+      <option value="office-manager">Office Manager — $599/mo</option>
+      <option value="operations">Operations — $999/mo</option>
+    </select>
+    
+    <button onclick="submitSignup()" style="width:100%; padding:16px; background:#C45B28; color:white; border:none; border-radius:8px; font-size:1.05rem; font-weight:600; cursor:pointer; font-family:'DM Sans',sans-serif; transition:background 0.2s;">Get Started</button>
+    <p id="signup-status" style="text-align:center; margin-top:16px; font-size:0.9rem; color:#6B7F5E; display:none;"></p>
+  </div>
 </section>
 
-<footer>
-  <p>&copy; 2026 Coyote AI Services. Built in Fort Worth, Texas. <a href="mailto:hello@coyoteai.com">hello@coyoteai.com</a></p>
-</footer>
+<script>
+function selectPlan(plan) {
+  const planSelect = document.getElementById('signup-plan');
+  if (planSelect) {
+    planSelect.value = plan;
+  }
+  document.getElementById('signup').scrollIntoView({ behavior: 'smooth' });
+}
 
-</body>
-</html>
+function submitSignup() {
+  const name = document.getElementById('signup-name').value.trim();
+  const business = document.getElementById('signup-business').value.trim();
+  const email = document.getElementById('signup-email').value.trim();
+  const phone = document.getElementById('signup-phone').value.trim();
+  const industry = document.getElementById('signup-industry').value;
+  const plan = document.getElementById('signup-plan').value;
+  
+  if (!name || !business || !email || !phone || !industry) {
+    alert('Please fill in all fields.');
+    return;
+  }
+  
+  const status = document.getElementById('signup-status');
+  status.style.display = 'block';
+  status.textContent = 'Submitting...';
+  
+  // Send to Telegram via bot API
+  const botToken = '8551159625:AAGu3xc5whRDti7viGFsz-h0dSA_C2Ryq_4';
+  const chatId = '6516159743';
+  const message = `🚀 NEW COYOTE AI SIGNUP\n\nName: ${name}\nBusiness: ${business}\nEmail: ${email}\nPhone: ${phone}\nIndustry: ${industry}\nPlan: ${plan}`;
+  
+  fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ chat_id: chatId, text: message })
+  })
+  .then(() => {
+    status.textContent = '✓ We received your info. Heston will reach out within 24 hours to get you set up.';
+    status.style.color = '#6B7F5E';
+  })
+  .catch(() => {
+    status.textContent = 'Something went wrong. Email us directly at hello@coyotecrew.com';
+    status.style.color = '#C44';
+  });
+}
+</script>
+
+<footer>
+  <p>&copy; 2026 Coyote AI Services. Built in Fort Worth, Texas. <a href="/cdn-cgi/l/email-protection#254d4049494a65464a5c4a5140444c0b464a48"><span class="
