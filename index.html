@@ -747,6 +747,12 @@ function selectPlan(plan) {
   document.getElementById('signup').scrollIntoView({ behavior: 'smooth' });
 }
 
+const stripeLinks = {
+  'front-desk': 'https://buy.stripe.com/test_00waEXcnN3DS1vd3kq6oo03',
+  'office-manager': 'https://buy.stripe.com/test_aFacN55Zpa2g2zh7AG6oo02',
+  'operations': 'https://buy.stripe.com/test_28E6oHbjJ4HW0r908e6oo01'
+};
+
 function submitSignup() {
   const name = document.getElementById('signup-name').value.trim();
   const business = document.getElementById('signup-business').value.trim();
@@ -762,12 +768,13 @@ function submitSignup() {
   
   const status = document.getElementById('signup-status');
   status.style.display = 'block';
-  status.textContent = 'Submitting...';
+  status.textContent = 'Redirecting to payment...';
   
-  // Send to Telegram via bot API
+  // Send lead to Telegram first
   const botToken = '8551159625:AAGu3xc5whRDti7viGFsz-h0dSA_C2Ryq_4';
   const chatId = '6516159743';
-  const message = `🚀 NEW COYOTE AI SIGNUP\n\nName: ${name}\nBusiness: ${business}\nEmail: ${email}\nPhone: ${phone}\nIndustry: ${industry}\nPlan: ${plan}`;
+  const planNames = {'front-desk':'Front Desk ($299/mo)','office-manager':'Office Manager ($599/mo)','operations':'Operations ($999/mo)'};
+  const message = `🚀 NEW COYOTE AI SIGNUP\n\nName: ${name}\nBusiness: ${business}\nEmail: ${email}\nPhone: ${phone}\nIndustry: ${industry}\nPlan: ${planNames[plan]}\n\n💳 Redirected to payment...`;
   
   fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
     method: 'POST',
@@ -775,12 +782,14 @@ function submitSignup() {
     body: JSON.stringify({ chat_id: chatId, text: message })
   })
   .then(() => {
-    status.textContent = '✓ We received your info. Heston will reach out within 24 hours to get you set up.';
-    status.style.color = '#6B7F5E';
+    // Redirect to Stripe with prefilled email
+    const stripeUrl = stripeLinks[plan] + '?prefilled_email=' + encodeURIComponent(email);
+    window.location.href = stripeUrl;
   })
   .catch(() => {
-    status.textContent = 'Something went wrong. Email us directly at hello@coyotecrew.com';
-    status.style.color = '#C44';
+    // Redirect anyway even if Telegram fails
+    const stripeUrl = stripeLinks[plan] + '?prefilled_email=' + encodeURIComponent(email);
+    window.location.href = stripeUrl;
   });
 }
 </script>
