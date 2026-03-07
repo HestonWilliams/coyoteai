@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Coyote AI Services — Your Business Runs Itself</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐺</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -766,31 +767,20 @@ function submitSignup() {
     return;
   }
   
-  const status = document.getElementById('signup-status');
-  status.style.display = 'block';
-  status.textContent = 'Redirecting to payment...';
-  
-  // Send lead to Telegram first
+  // Send lead to Telegram in background (don't wait for response)
   const botToken = '8551159625:AAGu3xc5whRDti7viGFsz-h0dSA_C2Ryq_4';
   const chatId = '6516159743';
   const planNames = {'front-desk':'Front Desk ($299/mo)','office-manager':'Office Manager ($599/mo)','operations':'Operations ($999/mo)'};
-  const message = `🚀 NEW COYOTE AI SIGNUP\n\nName: ${name}\nBusiness: ${business}\nEmail: ${email}\nPhone: ${phone}\nIndustry: ${industry}\nPlan: ${planNames[plan]}\n\n💳 Redirected to payment...`;
+  const message = '🚀 NEW COYOTE AI SIGNUP\n\nName: ' + name + '\nBusiness: ' + business + '\nEmail: ' + email + '\nPhone: ' + phone + '\nIndustry: ' + industry + '\nPlan: ' + planNames[plan] + '\n\n💳 Redirected to payment...';
   
-  fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ chat_id: chatId, text: message })
-  })
-  .then(() => {
-    // Redirect to Stripe with prefilled email
-    const stripeUrl = stripeLinks[plan] + '?prefilled_email=' + encodeURIComponent(email);
-    window.location.href = stripeUrl;
-  })
-  .catch(() => {
-    // Redirect anyway even if Telegram fails
-    const stripeUrl = stripeLinks[plan] + '?prefilled_email=' + encodeURIComponent(email);
-    window.location.href = stripeUrl;
-  });
+  navigator.sendBeacon(
+    'https://api.telegram.org/bot' + botToken + '/sendMessage',
+    new Blob([JSON.stringify({ chat_id: chatId, text: message })], { type: 'application/json' })
+  );
+  
+  // Redirect to Stripe immediately
+  const stripeUrl = stripeLinks[plan] + '?prefilled_email=' + encodeURIComponent(email);
+  window.location.href = stripeUrl;
 }
 </script>
 
