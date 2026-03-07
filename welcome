@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to Coyote AI — Let's Get You Set Up</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐺</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand: #F5F0E8;
+    --charcoal: #1A1A1A;
+    --rust: #C45B28;
+    --rust-dark: #A34820;
+    --cream: #FDF9F3;
+    --sage: #6B7F5E;
+    --warm-gray: #8A8275;
+    --light-line: rgba(26,26,26,0.1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  nav {
+    padding: 20px 40px;
+    border-bottom: 1px solid var(--light-line);
+  }
+
+  .logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.5rem;
+    color: var(--charcoal);
+    text-decoration: none;
+  }
+
+  .logo span { color: var(--rust); }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 60px 24px 120px;
+  }
+
+  .success-banner {
+    background: #E8F5E8;
+    border: 1px solid #B8DFB8;
+    border-radius: 12px;
+    padding: 24px 32px;
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .success-banner .check {
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+  }
+
+  .success-banner h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+  }
+
+  .success-banner p {
+    color: var(--warm-gray);
+    font-size: 0.95rem;
+  }
+
+  h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 2.25rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+
+  .subtitle {
+    color: var(--warm-gray);
+    font-size: 1.05rem;
+    margin-bottom: 40px;
+    line-height: 1.7;
+  }
+
+  .step-indicator {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 40px;
+  }
+
+  .step-dot {
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--light-line);
+    transition: background 0.3s;
+  }
+
+  .step-dot.active {
+    background: var(--rust);
+  }
+
+  .step-dot.done {
+    background: var(--sage);
+  }
+
+  .step {
+    display: none;
+  }
+
+  .step.active {
+    display: block;
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .step h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+  }
+
+  .step p.desc {
+    color: var(--warm-gray);
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid rgba(26,26,26,0.15);
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    font-family: 'DM Sans', sans-serif;
+    background: white;
+    transition: border-color 0.2s;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--rust);
+  }
+
+  textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+
+  .option-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .option-card {
+    border: 2px solid var(--light-line);
+    border-radius: 10px;
+    padding: 16px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+    background: white;
+  }
+
+  .option-card:hover {
+    border-color: var(--rust);
+  }
+
+  .option-card.selected {
+    border-color: var(--rust);
+    background: #FDF5F0;
+  }
+
+  .option-card .icon {
+    font-size: 1.5rem;
+    margin-bottom: 6px;
+  }
+
+  .option-card .label {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .btn-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .btn-back {
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    background: white;
+    color: var(--charcoal);
+    border: 1px solid var(--light-line);
+    transition: all 0.2s;
+  }
+
+  .btn-back:hover {
+    background: var(--sand);
+  }
+
+  .btn-next {
+    flex: 1;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--rust);
+    color: white;
+    border: none;
+    transition: all 0.2s;
+  }
+
+  .btn-next:hover {
+    background: var(--rust-dark);
+  }
+
+  .btn-next:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 18px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--charcoal);
+    color: white;
+    border: none;
+    transition: all 0.2s;
+    margin-top: 32px;
+  }
+
+  .btn-submit:hover {
+    background: #333;
+  }
+
+  .summary-card {
+    background: white;
+    border: 1px solid var(--light-line);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--light-line);
+    font-size: 0.95rem;
+  }
+
+  .summary-row:last-child {
+    border-bottom: none;
+  }
+
+  .summary-label {
+    color: var(--warm-gray);
+  }
+
+  .summary-value {
+    font-weight: 600;
+  }
+
+  .completion {
+    text-align: center;
+    padding: 60px 0;
+    display: none;
+  }
+
+  .completion .big-check {
+    font-size: 4rem;
+    margin-bottom: 16px;
+  }
+
+  .completion h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 2rem;
+    margin-bottom: 12px;
+  }
+
+  .completion p {
+    color: var(--warm-gray);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .note {
+    background: var(--sand);
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-size: 0.9rem;
+    color: var(--warm-gray);
+    margin-top: 24px;
+    line-height: 1.6;
+  }
+
+  .note strong {
+    color: var(--charcoal);
+  }
+
+  @media (max-width: 600px) {
+    .option-grid { grid-template-columns: 1fr; }
+    .container { padding: 40px 16px 80px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://coyotecrew.com" class="logo">Coyote <span>AI</span></a>
+</nav>
+
+<div class="container">
+
+  <div class="success-banner">
+    <div class="check">✅</div>
+    <h2>Payment received!</h2>
+    <p>Now let's get your AI employee set up. This takes about 5 minutes.</p>
+  </div>
+
+  <h1>Tell us about your business</h1>
+  <p class="subtitle">The more we know, the better your AI assistant works from day one. Answer a few questions and we will have you up and running within 24 hours.</p>
+
+  <div class="step-indicator">
+    <div class="step-dot active" id="dot-0"></div>
+    <div class="step-dot" id="dot-1"></div>
+    <div class="step-dot" id="dot-2"></div>
+    <div class="step-dot" id="dot-3"></div>
+    <div class="step-dot" id="dot-4"></div>
+  </div>
+
+  <!-- STEP 1: Business Basics -->
+  <div class="step active" id="step-0">
+    <h2>The Basics</h2>
+    <p class="desc">Let's start with who you are and what you do.</p>
+
+    <label>Your Name</label>
+    <input type="text" id="q-name" placeholder="John Smith">
+
+    <label>Business Name</label>
+    <input type="text" id="q-business" placeholder="Smith's Storage">
+
+    <label>Your Email</label>
+    <input type="email" id="q-email" placeholder="john@smithstorage.com">
+
+    <label>Your Phone</label>
+    <input type="tel" id="q-phone" placeholder="(555) 123-4567">
+
+    <label>Industry</label>
+    <div class="option-grid" id="industry-grid">
+      <div class="option-card" data-value="self-storage" onclick="selectOption(this, 'industry')">
+        <div class="icon">🏗️</div>
+        <div class="label">Self-Storage</div>
+      </div>
+      <div class="option-card" data-value="pool-service" onclick="selectOption(this, 'industry')">
+        <div class="icon">🏊</div>
+        <div class="label">Pool Service</div>
+      </div>
+      <div class="option-card" data-value="hvac" onclick="selectOption(this, 'industry')">
+        <div class="icon">🔧</div>
+        <div class="label">HVAC / Home Services</div>
+      </div>
+      <div class="option-card" data-value="car-wash" onclick="selectOption(this, 'industry')">
+        <div class="icon">🚗</div>
+        <div class="label">Car Wash</div>
+      </div>
+      <div class="option-card" data-value="landscaping" onclick="selectOption(this, 'industry')">
+        <div class="icon">🌿</div>
+        <div class="label">Landscaping</div>
+      </div>
+      <div class="option-card" data-value="auto-repair" onclick="selectOption(this, 'industry')">
+        <div class="icon">🔩</div>
+        <div class="label">Auto Repair</div>
+      </div>
+      <div class="option-card" data-value="dental" onclick="selectOption(this, 'industry')">
+        <div class="icon">🦷</div>
+        <div class="label">Dental / Medical</div>
+      </div>
+      <div class="option-card" data-value="other" onclick="selectOption(this, 'industry')">
+        <div class="icon">💼</div>
+        <div class="label">Other</div>
+      </div>
+    </div>
+
+    <label>How many locations do you operate?</label>
+    <select id="q-locations">
+      <option value="1">1 location</option>
+      <option value="2-3">2-3 locations</option>
+      <option value="4-10">4-10 locations</option>
+      <option value="10+">10+ locations</option>
+    </select>
+
+    <div class="btn-row">
+      <button class="btn-next" onclick="nextStep()">Continue</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: Software -->
+  <div class="step" id="step-1">
+    <h2>Your Software</h2>
+    <p class="desc">What tools do you use to run your business? We will connect directly to them.</p>
+
+    <label>Primary management software</label>
+    <select id="q-software">
+      <option value="">Select your software</option>
+      <optgroup label="Self-Storage">
+        <option value="storedge">StorEdge</option>
+        <option value="sitelink">SiteLink</option>
+        <option value="easy-storage">Easy Storage Solutions</option>
+        <option value="storeganise">Storeganise</option>
+      </optgroup>
+      <optgroup label="Pool Service">
+        <option value="poolbrain">PoolBrain</option>
+        <option value="skimmer">Skimmer</option>
+      </optgroup>
+      <optgroup label="Home Services">
+        <option value="jobber">Jobber</option>
+        <option value="servicetitan">ServiceTitan</option>
+        <option value="housecall-pro">Housecall Pro</option>
+      </optgroup>
+      <optgroup label="General">
+        <option value="spreadsheets">Spreadsheets / Manual</option>
+        <option value="other">Other (tell us below)</option>
+      </optgroup>
+    </select>
+
+    <label>Software login URL (if web-based)</label>
+    <input type="url" id="q-software-url" placeholder="https://app.yoursoftware.com">
+
+    <label>Does your software have API access?</label>
+    <select id="q-api-access">
+      <option value="unsure">Not sure</option>
+      <option value="yes">Yes, I have API access</option>
+      <option value="no">No, just browser login</option>
+    </select>
+
+    <label>Any other tools you use day to day? (CRM, Google Calendar, scheduling apps, etc.)</label>
+    <textarea id="q-other-tools" placeholder="Example: Google Calendar for scheduling, Mailchimp for email marketing"></textarea>
+
+    <div class="btn-row">
+      <button class="btn-back" onclick="prevStep()">Back</button>
+      <button class="btn-next" onclick="nextStep()">Continue</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: Communication -->
+  <div class="step" id="step-2">
+    <h2>Communication</h2>
+    <p class="desc">How do your customers reach you?</p>
+
+    <label>Business phone number (the one customers text/call)</label>
+    <input type="tel" id="q-biz-phone" placeholder="(555) 987-6543">
+
+    <label>What phone system is that on?</label>
+    <select id="q-phone-system">
+      <option value="">Select your phone system</option>
+      <option value="openphone">OpenPhone</option>
+      <option value="ringcentral">RingCentral</option>
+      <option value="google-voice">Google Voice</option>
+      <option value="grasshopper">Grasshopper</option>
+      <option value="cell">Regular cell phone</option>
+      <option value="landline">Landline</option>
+      <option value="other">Other</option>
+    </select>
+
+    <label>How do customers primarily reach you?</label>
+    <div class="option-grid" id="comm-grid">
+      <div class="option-card" data-value="sms" onclick="selectOption(this, 'comm')">
+        <div class="icon">💬</div>
+        <div class="label">Text / SMS</div>
+      </div>
+      <div class="option-card" data-value="phone" onclick="selectOption(this, 'comm')">
+        <div class="icon">📞</div>
+        <div class="label">Phone Calls</div>
+      </div>
+      <div class="option-card" data-value="email" onclick="selectOption(this, 'comm')">
+        <div class="icon">📧</div>
+        <div class="label">Email</div>
+      </div>
+      <div class="option-card" data-value="mix" onclick="selectOption(this, 'comm')">
+        <div class="icon">🔀</div>
+        <div class="label">Mix of Everything</div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-back" onclick="prevStep()">Back</button>
+      <button class="btn-next" onclick="nextStep()">Continue</button>
+    </div>
+  </div>
+
+  <!-- STEP 4: Business Rules -->
+  <div class="step" id="step-3">
+    <h2>How You Operate</h2>
+    <p class="desc">Help us match your AI to the way you already run things.</p>
+
+    <label>Business hours</label>
+    <input type="text" id="q-hours" placeholder="8am - 6pm, Monday through Saturday">
+
+    <label>Your timezone</label>
+    <select id="q-timezone">
+      <option value="America/Chicago">Central Time</option>
+      <option value="America/New_York">Eastern Time</option>
+      <option value="America/Denver">Mountain Time</option>
+      <option value="America/Los_Angeles">Pacific Time</option>
+      <option value="America/Phoenix">Arizona (no DST)</option>
+      <option value="Pacific/Honolulu">Hawaii</option>
+      <option value="America/Anchorage">Alaska</option>
+    </select>
+
+    <label>How do you handle late payments today? Walk us through your current process.</label>
+    <textarea id="q-collections" placeholder="Example: I send a reminder on the 5th, then a late fee on the 10th, then a warning letter on the 20th..."></textarea>
+
+    <label>How often do you want reports?</label>
+    <select id="q-reports">
+      <option value="weekly">Weekly</option>
+      <option value="daily">Daily</option>
+      <option value="monthly">Monthly</option>
+    </select>
+
+    <label>Is there anything you want your AI to always check with you first before doing?</label>
+    <textarea id="q-approvals" placeholder="Example: Always check with me before sending a late fee notice over $500. Always ask me before processing a move-out."></textarea>
+
+    <div class="btn-row">
+      <button class="btn-back" onclick="prevStep()">Back</button>
+      <button class="btn-next" onclick="nextStep()">Continue</button>
+    </div>
+  </div>
+
+  <!-- STEP 5: Personality & Review -->
+  <div class="step" id="step-4">
+    <h2>Final Details</h2>
+    <p class="desc">Almost done. Just a couple more things.</p>
+
+    <label>What would you like your AI assistant to call itself?</label>
+    <input type="text" id="q-agent-name" placeholder="Examples: Max, Alex, Sam, or just Assistant">
+
+    <label>What personality should it have with your customers?</label>
+    <select id="q-personality">
+      <option value="friendly-professional">Friendly and professional</option>
+      <option value="casual">Casual and laid-back</option>
+      <option value="formal">Formal and buttoned-up</option>
+      <option value="brief">Brief and to-the-point</option>
+    </select>
+
+    <label>Anything else we should know? Special instructions, quirks about your business, things to avoid?</label>
+    <textarea id="q-notes" placeholder="Tell us anything that would help your AI do a better job."></textarea>
+
+    <div class="note">
+      <strong>One more thing:</strong> Your AI gets smarter the more you work together. The first couple of weeks it might need some guidance on how you like things done. Correct it when it gets something wrong and it will remember for next time. Think of it like training a new employee who happens to learn really fast.
+    </div>
+
+    <h2 style="margin-top:40px;">Review Your Info</h2>
+    <div class="summary-card" id="summary-card"></div>
+
+    <button class="btn-submit" onclick="submitOnboarding()">Submit and Get Started</button>
+    <p id="submit-status" style="text-align:center; margin-top:16px; font-size:0.9rem; display:none;"></p>
+  </div>
+
+  <!-- COMPLETION -->
+  <div class="completion" id="completion">
+    <div class="big-check">🎉</div>
+    <h2>You're all set!</h2>
+    <p>We have everything we need. Heston will personally set up your AI assistant and reach out within 24 hours with your Telegram bot link. Once connected, your AI starts working immediately.</p>
+    <p style="margin-top:24px; color:#1A1A1A; font-weight:600;">Questions? Text Heston directly at (817) 765-4984.</p>
+  </div>
+
+</div>
+
+<script>
+let currentStep = 0;
+const totalSteps = 5;
+const selections = { industry: null, comm: null };
+
+function selectOption(el, group) {
+  const grid = el.parentElement;
+  grid.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selections[group] = el.dataset.value;
+}
+
+function updateDots() {
+  for (let i = 0; i < totalSteps; i++) {
+    const dot = document.getElementById('dot-' + i);
+    dot.classList.remove('active', 'done');
+    if (i === currentStep) dot.classList.add('active');
+    else if (i < currentStep) dot.classList.add('done');
+  }
+}
+
+function nextStep() {
+  if (currentStep === 0) {
+    const name = document.getElementById('q-name').value.trim();
+    const biz = document.getElementById('q-business').value.trim();
+    const email = document.getElementById('q-email').value.trim();
+    if (!name || !biz || !email || !selections.industry) {
+      alert('Please fill in all fields and select your industry.');
+      return;
+    }
+  }
+
+  document.getElementById('step-' + currentStep).classList.remove('active');
+  currentStep++;
+  document.getElementById('step-' + currentStep).classList.add('active');
+  updateDots();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  if (currentStep === 4) buildSummary();
+}
+
+function prevStep() {
+  document.getElementById('step-' + currentStep).classList.remove('active');
+  currentStep--;
+  document.getElementById('step-' + currentStep).classList.add('active');
+  updateDots();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function buildSummary() {
+  const card = document.getElementById('summary-card');
+  const rows = [
+    ['Name', document.getElementById('q-name').value],
+    ['Business', document.getElementById('q-business').value],
+    ['Email', document.getElementById('q-email').value],
+    ['Phone', document.getElementById('q-phone').value],
+    ['Industry', selections.industry],
+    ['Locations', document.getElementById('q-locations').value],
+    ['Software', document.getElementById('q-software').value || 'Not specified'],
+    ['Phone System', document.getElementById('q-phone-system').value || 'Not specified'],
+    ['Customer Channel', selections.comm || 'Not specified'],
+    ['Business Hours', document.getElementById('q-hours').value || 'Not specified'],
+    ['Timezone', document.getElementById('q-timezone').value],
+    ['Report Frequency', document.getElementById('q-reports').value],
+    ['AI Name', document.getElementById('q-agent-name').value || 'Not chosen yet'],
+    ['Personality', document.getElementById('q-personality').value],
+  ];
+  card.innerHTML = rows.map(r =>
+    '<div class="summary-row"><span class="summary-label">' + r[0] + '</span><span class="summary-value">' + r[1] + '</span></div>'
+  ).join('');
+}
+
+function submitOnboarding() {
+  const status = document.getElementById('submit-status');
+  status.style.display = 'block';
+  status.textContent = 'Submitting...';
+  status.style.color = '#8A8275';
+
+  const data = {
+    name: document.getElementById('q-name').value.trim(),
+    business: document.getElementById('q-business').value.trim(),
+    email: document.getElementById('q-email').value.trim(),
+    phone: document.getElementById('q-phone').value.trim(),
+    industry: selections.industry,
+    locations: document.getElementById('q-locations').value,
+    software: document.getElementById('q-software').value,
+    software_url: document.getElementById('q-software-url').value.trim(),
+    api_access: document.getElementById('q-api-access').value,
+    other_tools: document.getElementById('q-other-tools').value.trim(),
+    biz_phone: document.getElementById('q-biz-phone').value.trim(),
+    phone_system: document.getElementById('q-phone-system').value,
+    comm_channel: selections.comm,
+    hours: document.getElementById('q-hours').value.trim(),
+    timezone: document.getElementById('q-timezone').value,
+    collections: document.getElementById('q-collections').value.trim(),
+    reports: document.getElementById('q-reports').value,
+    approvals: document.getElementById('q-approvals').value.trim(),
+    agent_name: document.getElementById('q-agent-name').value.trim(),
+    personality: document.getElementById('q-personality').value,
+    notes: document.getElementById('q-notes').value.trim()
+  };
+
+  const botToken = '8551159625:AAGu3xc5whRDti7viGFsz-h0dSA_C2Ryq_4';
+  const chatId = '6516159743';
+
+  const message = '🎉 NEW CLIENT ONBOARDING COMPLETE\n\n' +
+    '👤 ' + data.name + '\n' +
+    '🏢 ' + data.business + '\n' +
+    '📧 ' + data.email + '\n' +
+    '📱 ' + data.phone + '\n' +
+    '🏭 Industry: ' + data.industry + '\n' +
+    '📍 Locations: ' + data.locations + '\n\n' +
+    '💻 Software: ' + (data.software || 'Not specified') + '\n' +
+    '🔗 URL: ' + (data.software_url || 'N/A') + '\n' +
+    '🔌 API: ' + data.api_access + '\n' +
+    '🛠 Other tools: ' + (data.other_tools || 'None') + '\n\n' +
+    '📞 Biz phone: ' + (data.biz_phone || 'N/A') + '\n' +
+    '📡 Phone system: ' + (data.phone_system || 'N/A') + '\n' +
+    '💬 Primary channel: ' + (data.comm_channel || 'N/A') + '\n\n' +
+    '🕐 Hours: ' + (data.hours || 'N/A') + '\n' +
+    '🌎 Timezone: ' + data.timezone + '\n' +
+    '📊 Reports: ' + data.reports + '\n' +
+    '💰 Collections: ' + (data.collections || 'Not described') + '\n' +
+    '⚠️ Needs approval for: ' + (data.approvals || 'Nothing specified') + '\n\n' +
+    '🤖 Agent name: ' + (data.agent_name || 'Not chosen') + '\n' +
+    '🎭 Personality: ' + data.personality + '\n' +
+    '📝 Notes: ' + (data.notes || 'None') + '\n\n' +
+    '— Ready to deploy. Create TG bot, configure, and send client their link.';
+
+  navigator.sendBeacon(
+    'https://api.telegram.org/bot' + botToken + '/sendMessage',
+    new Blob([JSON.stringify({ chat_id: chatId, text: message })], { type: 'application/json' })
+  );
+
+  // Show completion
+  document.querySelector('.step-indicator').style.display = 'none';
+  document.getElementById('step-4').style.display = 'none';
+  document.querySelector('h1').style.display = 'none';
+  document.querySelector('.subtitle').style.display = 'none';
+  document.getElementById('completion').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
